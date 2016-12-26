@@ -43,3 +43,5 @@ gem 'sass-rails'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+# Add simple_form gem
+gem 'simple_form'
