@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     resources :courses, only: [:new, :create, :show] do
       resources :sections, only: [:new, :create] 
     end
+    resources :sections, only: [:update]
   end
 
   # Example of regular route:
