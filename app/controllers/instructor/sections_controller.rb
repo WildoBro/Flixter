@@ -13,20 +13,22 @@ class Instructor::SectionsController < ApplicationController
   end
 
   def update
-
+    current_section.update_attributes(section_params)
+    render text: 'updated!'
   end
 
   private
 
   def require_authorized_for_current_course
     if current_course.user != current_user
-      render text: "Unautherized", status: :unauthorized
+      render text: "Unauthorized", status: :unauthorized
     end
   end
 
   def require_authorized_for_current_section
-    if current_section.user != current_user
-      render text: "Unautherized", status: :unauthorized
+    if current_section.course.user != current_user
+      render text: "Unauthorized", status: :unauthorized
+    end
   end
 
   helper_method :current_course
@@ -38,9 +40,9 @@ class Instructor::SectionsController < ApplicationController
     end
   end
 
-  helper_method
+  helper_method :current_section
   def current_section
-    @current_section ||= Section.find(params[:section_id])
+    @current_section ||= Section.find(params[:id])
   end
 
   def section_params
@@ -48,6 +50,3 @@ class Instructor::SectionsController < ApplicationController
   end
 end
 
-# added helper_method (current_section)
-# added the before_action (before_action :require_authorized_for_current_section, only: [:update])
-# added the [:new, :create] to line 3
